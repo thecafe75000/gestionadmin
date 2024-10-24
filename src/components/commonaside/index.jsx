@@ -30,12 +30,12 @@ const items = menuConfig.map(item => {
 })
 
 const CommonAside = ({collapse}) => {
-  console.log('collapse aside',collapse)
+  
   return (
-    <Sider trigger={null} collapsible>
-      <h3 className='app-name'>Gestion Administrative</h3>
+    <Sider trigger={null} collapsed={collapse}>
+      <h3 className='app-name'>{collapse ? 'Gestion' : 'Gestion Administrative'}</h3>
       <Menu
-        theme='dark'
+        theme='light'
         mode='inline'
         defaultSelectedKeys={['1']}
         items={items}

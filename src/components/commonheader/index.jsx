@@ -44,7 +44,6 @@ const CommonHeader = ({ collapse }) => {
 
   //点击展开收起侧边栏的按钮
   const setCollapsed = () => {
-    console.log('collapse', collapse)
     dispatch(collapseMenu())
   }
 

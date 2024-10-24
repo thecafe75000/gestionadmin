@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Layout} from 'antd'
 import CommonAside from '../components/commonaside'
 import CommonHeader from '../components/commonheader'
+import { Outlet } from 'react-router-dom'
 
 
 const { Content } = Layout
@@ -21,7 +22,7 @@ const Main = () => {
             minHeight: 280
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
