@@ -23,8 +23,8 @@ for (let i = 0; i < count; i++) {
   List.push(
     Mock.mock({
       id: Mock.Random.guid(),
-      name: Mock.Random.cname(),
-      addr: Mock.mock('@county(true)'),
+      name: Mock.Random.name(),
+      addr: Mock.mock('@city(true)'),
       'age|18-60': 1,
       birth: Mock.Random.date(),
       sex: Mock.Random.integer(0, 1)
@@ -77,7 +77,7 @@ const userApi = {
     return {
       code: 20000,
       data: {
-        message: '添加成功'
+        message: 'succes for new user'
       }
     }
   },
@@ -91,13 +91,13 @@ const userApi = {
     if (!id) {
       return {
         code: -999,
-        message: '参数不正确'
+        message: 'wrong parameters'
       }
     } else {
       List = List.filter((u) => u.id !== id)
       return {
         code: 20000,
-        message: '删除成功'
+        message: 'deletion of an user successful'
       }
     }
   },
@@ -113,7 +113,7 @@ const userApi = {
     return {
       code: 20000,
       data: {
-        message: '批量删除成功'
+        message: 'Batch deletion successful'
       }
     }
   },
@@ -139,7 +139,7 @@ const userApi = {
     return {
       code: 20000,
       data: {
-        message: '编辑成功'
+        message: 'Edit Success'
       }
     }
   }

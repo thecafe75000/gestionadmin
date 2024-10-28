@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Card, Table } from 'antd'
 import * as Icon from '@ant-design/icons'
-import * as echarts from 'echarts'
 import {getData} from '@/api'
 import './index.css'
 import userImage from '@/asssets/images/user.png'
+import Echarts from '@/components/Echarts'
 
 const Home = () => {
   // 定义table数据(table的行的数据)
@@ -29,33 +29,57 @@ const Home = () => {
     }
   ]
 
-  useEffect(() => {
-    getData().then(({ data }) => {
-      const { tableData } = data.data
-      // console.log(tableData)
-      setTableData(tableData)
-    })
+  // 创建echarts的响应数据
+  const [echartData, setEchartData] = useState({})
 
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('homepage'))
-    // 绘制图表
-    myChart.setOption({
-      title: {
-        text: 'ECharts 入门示例'
-      },
-      tooltip: {},
-      xAxis: {
-        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-      },
-      yAxis: {},
-      series: [
-        {
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
+  useEffect(() => {
+    async function fetchData() {
+      const result = await getData()
+      const { tableData, orderData, userData, videoData } = result.data.data
+      // console.log(result.data.data, '数据')
+      setTableData(tableData)
+      const order = orderData
+      const xData = order.date
+      const series = []
+      const keyArray = Object.keys(order.data[0])
+      keyArray.forEach((key) => {
+        series.push({
+          name: key,
+          data: order.data.map((item) => item[key]),
+          type: 'line'
+        })
+      })
+      setEchartData({
+        order: {
+          xData,
+          series
+        },
+        user: {
+          xData: userData.map((item) => item.date),
+          series: [
+            {
+              name: 'new user',
+              data: userData.map((item) => item.new),
+              type: 'bar'
+            },
+            {
+              name: 'active user',
+              data: userData.map((item) => item.active),
+              type: 'bar'
+            }
+          ]
+        },
+        video: {
+          series: [
+            {
+              data: videoData,
+              type: 'pie'
+            }
+          ]
         }
-      ]
-    })
+      })
+    }
+    fetchData()
   }, [])
 
   // 订单统计数据
@@ -136,7 +160,12 @@ const Home = () => {
           {countData.map((item, index) => {
             return (
               <Card key={index}>
-                <div className='icon-box' style={{backgroundColor:item.color}}>{iconToElement(item.icon)}</div>
+                <div
+                  className='icon-box'
+                  style={{ backgroundColor: item.color }}
+                >
+                  {iconToElement(item.icon)}
+                </div>
                 <div className='detail'>
                   <p className='chiff'> € {item.value}</p>
                   <p className='txt'>{item.name}</p>
@@ -145,7 +174,15 @@ const Home = () => {
             )
           })}
         </div>
-        <div id='homepage' style={{height:'300px'}}></div>
+        {echartData.order && <Echarts chartData={echartData.order} style={{ height: '280px' }} />}
+        <div className='graph'>
+          {echartData.user && (
+            <Echarts chartData={echartData.user} style={{ height: '240px', width:'50%' }} />
+          )}
+          {echartData.video && (
+            <Echarts chartData={echartData.video} isAxisChart={false} style={{ height: '260px', width:'50%' }} />
+          )}
+        </div>
       </Col>
     </Row>
   )
