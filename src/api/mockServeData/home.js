@@ -9,12 +9,12 @@ const homeData = {
     for (let i = 0; i < 7; i++) {
       List.push(
         Mock.mock({
-          苹果: Mock.Random.float(100, 8000, 0, 0),
-          vivo: Mock.Random.float(100, 8000, 0, 0),
-          oppo: Mock.Random.float(100, 8000, 0, 0),
-          魅族: Mock.Random.float(100, 8000, 0, 0),
-          三星: Mock.Random.float(100, 8000, 0, 0),
-          小米: Mock.Random.float(100, 8000, 0, 0)
+          Apple: Mock.Random.float(100, 8000, 0, 0),
+          Vivo: Mock.Random.float(100, 8000, 0, 0),
+          Oppo: Mock.Random.float(100, 8000, 0, 0),
+          Meizu: Mock.Random.float(100, 8000, 0, 0),
+          Samsung: Mock.Random.float(100, 8000, 0, 0),
+          Xiaomi: Mock.Random.float(100, 8000, 0, 0)
         })
       )
     }
@@ -24,64 +24,64 @@ const homeData = {
         // 饼图
         videoData: [
           {
-            name: '小米',
+            name: 'Xiaomi',
             value: 2999
           },
           {
-            name: '苹果',
+            name: 'Apple',
             value: 5999
           },
           {
-            name: 'vivo',
+            name: 'Vivo',
             value: 1500
           },
           {
-            name: 'oppo',
+            name: 'Oppo',
             value: 1999
           },
           {
-            name: '魅族',
+            name: 'Meizu',
             value: 2200
           },
           {
-            name: '三星',
+            name: 'Samsung',
             value: 4500
           }
         ],
         // 柱状图
         userData: [
           {
-            date: '周一',
+            date: 'Monday',
             new: 5,
             active: 200
           },
           {
-            date: '周二',
+            date: 'Tuesday',
             new: 10,
             active: 500
           },
           {
-            date: '周三',
+            date: 'Wednesday',
             new: 12,
             active: 550
           },
           {
-            date: '周四',
+            date: 'Thursday',
             new: 60,
             active: 800
           },
           {
-            date: '周五',
+            date: 'Friday',
             new: 65,
             active: 550
           },
           {
-            date: '周六',
+            date: 'Saturday',
             new: 53,
             active: 770
           },
           {
-            date: '周日',
+            date: 'Sunday',
             new: 33,
             active: 170
           }
@@ -101,37 +101,37 @@ const homeData = {
         },
         tableData: [
           {
-            name: 'oppo',
+            name: 'Oppo',
             todayBuy: 500,
             monthBuy: 3500,
             totalBuy: 22000
           },
           {
-            name: 'vivo',
+            name: 'Vivo',
             todayBuy: 300,
             monthBuy: 2200,
             totalBuy: 24000
           },
           {
-            name: '苹果',
+            name: 'Apple',
             todayBuy: 800,
             monthBuy: 4500,
             totalBuy: 65000
           },
           {
-            name: '小米',
+            name: 'Xiaomi',
             todayBuy: 1200,
             monthBuy: 6500,
             totalBuy: 45000
           },
           {
-            name: '三星',
+            name: 'Samsung',
             todayBuy: 300,
             monthBuy: 2000,
             totalBuy: 34000
           },
           {
-            name: '魅族',
+            name: 'Meizu',
             todayBuy: 350,
             monthBuy: 3000,
             totalBuy: 22000
