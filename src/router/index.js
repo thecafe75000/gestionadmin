@@ -1,10 +1,10 @@
 import { useRoutes, Navigate } from 'react-router-dom'
-import Main from '../pages/main'
-import Home from '../pages/home'
-import Mall from '../pages/mall'
-import User from '../pages/user/user'
-import PageOne from '../pages/souspages/pageone'
-import PageTwo from '../pages/souspages/pagetwo'
+import Main from '@/pages/main'
+import Home from '@/pages/home'
+import Mall from '@/pages/mall'
+import User from '@/pages/user/user'
+import PageOne from '@/pages/souspages/pageone'
+import PageTwo from '@/pages/souspages/pagetwo'
 
 const Router = () => {
   const routes = useRoutes([

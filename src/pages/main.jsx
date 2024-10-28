@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Layout} from 'antd'
-import CommonAside from '../components/commonaside'
-import CommonHeader from '../components/commonheader'
+import CommonAside from '@/components/commonaside'
+import CommonHeader from '@/components/commonheader'
 import { Outlet } from 'react-router-dom'
 
 
