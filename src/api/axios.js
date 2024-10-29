@@ -16,14 +16,12 @@ class HttpRequest {
     return config
   }
 
-  interception(instanceAx) {
+  interceptors(instanceAx) {
     // 添加请求拦截器
-    instanceAx.interceptors.request.use(
-      function (config) {
+    instanceAx.interceptors.request.use(function (config) {
         // 在发送请求之前做些什么
         return config
-      },
-      function (error) {
+      }, function (error) {
         // 对请求错误做些什么
         return Promise.reject(error)
       }
@@ -49,7 +47,7 @@ class HttpRequest {
     // 创建axios的实例
     const instance = axios.create()
     // 调用方法interception实现当前实例的拦截器
-    this.interception(instance)
+    this.interceptors(instance)
     return instance(options)
   }
 }

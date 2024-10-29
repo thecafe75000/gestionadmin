@@ -14,3 +14,27 @@ export const getUser = (params) => {
     params
   })
 }
+
+export const addUser = (data) => {
+  return httpReq.request({
+    url: '/user/addUser',
+    method: 'post',
+    data
+  })
+}
+
+export const editUser = (data) => {
+  return httpReq.request({
+    url: '/user/editUser',
+    method: 'post',
+    data
+  })
+}
+
+export const deleteUser = (data) => {
+  return httpReq.request({
+    url: '/user/delUser',
+    method: 'post',
+    data
+  })
+}

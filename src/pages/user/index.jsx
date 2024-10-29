@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Form, Input, Table, Popconfirm, Modal, InputNumber, Select, DatePicker} from 'antd'
 import './index.css'
-import { getUser } from '@/api'
+import { getUser, addUser, editUser, deleteUser} from '@/api'
+import dayjs from 'dayjs'
 
 const User = () => {
   const [userlistData, setUserlistData] = useState({ name: '' })
   const [tableData, setTableData] = useState([])
+  // 弹窗, 0代表新增, 1代表编辑
   const [modalType, setModalType] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [form] = Form.useForm()
-  
-  const getTableData = async () => {
+
+  const getTableData = useCallback(async () => {
     const result = await getUser(userlistData)
     const data = result.data
     setTableData(data.list)
-  }
+  }, [userlistData])
+  
 
-  const handleDelete = (data) => {
-    
+  // 通过id进行删除
+  const handleDelete = ({ id }) => {
+    deleteUser({ id }).then(() => {
+      getTableData()
+    })
   }
 
   const columns = [
@@ -73,14 +79,18 @@ const User = () => {
   useEffect(() => {
     // 调用后端接口获取用户列表数据
     getTableData()
-  }, [])
+  }, [getTableData])
 
-  const handleClick = (type, data) => {
+  const handleClick = (type, rowData) => {
     setIsModalOpen(!isModalOpen)
     if (type === 'add') {
       setModalType(0)
     } else {
-       setModalType(1)
+      setModalType(1)
+      const cloneData = JSON.parse(JSON.stringify(rowData))
+      cloneData.birth = dayjs(cloneData.birth)
+      // 表单数据回填
+      form.setFieldsValue(cloneData)
     }
   }
 
@@ -92,11 +102,30 @@ const User = () => {
   }
 
   const handleOk = () => {
-    
+    // 弹窗里的表单校验
+    form.validateFields().then((val) => {
+      // 用第3方库dayjs进行日期格式化
+      val.birth = dayjs(val.birth).format('YYYY-MM-DD')
+      // 调后端接口
+      if (modalType) {
+        editUser(val).then(() => {
+          handleCancel()
+          getTableData()
+        })
+      } else {
+        addUser(val).then(() => {
+          handleCancel()
+          getTableData()
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   const handleCancel = () => {
     setIsModalOpen(false)
+    form.resetFields()
   }
 
   return (
@@ -133,9 +162,14 @@ const User = () => {
           }}
           labelAlign='left'
         >
+          {modalType === 1 && (
+            <Form.Item name='id' hidden>
+              <Input />
+            </Form.Item>
+          )}
           <Form.Item
             label='Nom'
-            name='username'
+            name='name'
             rules={[
               {
                 required: true,
@@ -195,7 +229,7 @@ const User = () => {
               }
             ]}
           >
-            <DatePicker placeholder='choose date' format='DD/MM/YYYY' />
+            <DatePicker placeholder='choose date' format='YYYY/MM/DD' />
           </Form.Item>
           <Form.Item
             label='Adresse'
