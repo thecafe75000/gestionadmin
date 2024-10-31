@@ -5,14 +5,43 @@ import { createSlice } from '@reduxjs/toolkit'
 const tabSlice = createSlice({
   name: 'tab',
   initialState: {
-    isCollapse: false
+    isCollapse: false,
+    tabList: [{
+      path: '/',
+      name: 'home',
+      label: 'Home'
+    }],
+    currentMenu: {}
   },
   reducers: {
     collapseMenu: state => {
        state.isCollapse = !state.isCollapse
+    },
+    selectMenulist: (state, { payload: val }) => {
+      if (val.name !== 'home') {
+        state.currentMenu = val
+        const result = state.tabList.findIndex(item => item.name === val.name)
+        if (result === -1) {
+          state.tabList.push(val)
+        }
+      } else if(val.name === 'home' && state.tabList.length === 1) {
+        state.currentMenu = {}
+      }
+    },
+    closeTab: (state, { payload: val }) => {
+      let result = state.tabList.findIndex(item => item.name === val.name)
+      state.tabList.splice(result, 1)
+    },
+    setCurrentMenu: (state, { payload: val }) => {
+      if (val.name === 'home') {
+        state.currentMenu={}
+      } else {
+        state.currentMenu = val
+      }
     }
   }
 })
 
-export const { collapseMenu } = tabSlice.actions
+export const { collapseMenu, selectMenulist, closeTab, setCurrentMenu } =
+  tabSlice.actions
 export default tabSlice.reducer

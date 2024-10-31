@@ -4,6 +4,7 @@ import { Layout} from 'antd'
 import CommonAside from '@/components/commonaside'
 import CommonHeader from '@/components/commonheader'
 import { Outlet } from 'react-router-dom'
+import CommonTag from '@/components/commonTag'
 
 
 const { Content } = Layout
@@ -15,6 +16,7 @@ const Main = () => {
       <CommonAside collapse={collapse} />
       <Layout>
         <CommonHeader collapse={collapse} />
+        <CommonTag/>
         <Content
           style={{
             margin: '24px 16px',

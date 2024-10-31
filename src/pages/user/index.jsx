@@ -17,8 +17,8 @@ const User = () => {
     const data = result.data
     setTableData(data.list)
   }, [userlistData])
-  
 
+ 
   // 通过id进行删除
   const handleDelete = ({ id }) => {
     deleteUser({ id }).then(() => {
@@ -76,11 +76,6 @@ const User = () => {
     }
   ]
 
-  useEffect(() => {
-    // 调用后端接口获取用户列表数据
-    getTableData()
-  }, [getTableData])
-
   const handleClick = (type, rowData) => {
     setIsModalOpen(!isModalOpen)
     if (type === 'add') {
@@ -94,12 +89,17 @@ const User = () => {
     }
   }
 
-  const handleFinish = (e) => {
+  const handleSearch = (e) => {
     setUserlistData({
-      name: e.name
+      name: e.keyword 
     })
     console.log('user page', e)
   }
+
+   useEffect(() => {
+     // 调用后端接口获取用户列表数据
+     getTableData()
+   }, [userlistData, getTableData])
 
   const handleOk = () => {
     // 弹窗里的表单校验
@@ -124,7 +124,9 @@ const User = () => {
   }
 
   const handleCancel = () => {
+    // 关闭弹窗
     setIsModalOpen(false)
+    // 清空表单
     form.resetFields()
   }
 
@@ -134,7 +136,7 @@ const User = () => {
         <Button type='primary' onClick={() => handleClick('add')}>
           + new user
         </Button>
-        <Form layout='inline' onFinish={handleFinish}>
+        <Form layout='inline' onFinish={handleSearch}>
           <Form.Item name='keyword'>
             <Input placeholder='Please enter username' />
           </Form.Item>
@@ -145,7 +147,7 @@ const User = () => {
           </Form.Item>
         </Form>
       </div>
-      <Table columns={columns} dataSource={tableData} rowKey={'id'} />
+      <Table style={{marginTop:'10px'}} columns={columns} dataSource={tableData} rowKey={'id'} />
       <Modal
         open={isModalOpen}
         title={modalType ? 'modifier' : '+ new user'}

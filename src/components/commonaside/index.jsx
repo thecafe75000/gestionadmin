@@ -1,9 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import * as Icon from '@ant-design/icons'
 import { Layout, Menu } from 'antd'
-import menuConfig from '../../config'
-
+import menuConfig from '@/config'
+import {selectMenulist} from '@/store/reducers/tab'
 
 const { Sider } = Layout
 
@@ -15,7 +16,7 @@ const iconToElement = (name) => React.createElement(Icon[name])
 const items = menuConfig.map(item => {
   // 没有子菜单的情况
   const child = {
-    key: item.name,
+    key: item.path,
     icon: iconToElement(item.icon),
     label: item.label
   }
@@ -23,7 +24,7 @@ const items = menuConfig.map(item => {
   if (item.children) {
     child.children = item.children.map(item => {
       return {
-        key: item.name,
+        key: item.path,
         label: item.label
       }
     })
@@ -33,8 +34,32 @@ const items = menuConfig.map(item => {
 
 const CommonAside = ({ collapse }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  // 添加数据到store
+  const setTablist = (val) => {
+    dispatch(selectMenulist(val))
+  }
+
+  // 点击菜单
   const selectMenu = (e) => {
+    console.log('menu selec', e)
+    let data 
+    menuConfig.forEach(item => {
+      if (item.path === e.keyPath[e.keyPath.length - 1]) {
+        data = item
+        if (e.keyPath.length > 1) {
+          data = item.children.find(child => {
+            return child.path === e.key
+          })
+        }
+      }
+    })
+    setTablist({
+      path: data.path,
+      name: data.name,
+      label: data.label
+    })
     navigate(e.key)
   }
   

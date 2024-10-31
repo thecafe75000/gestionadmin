@@ -46,7 +46,7 @@ class HttpRequest {
     options = { ...this.getInsideConfig(), ...options }
     // 创建axios的实例
     const instance = axios.create()
-    // 调用方法interception实现当前实例的拦截器
+    // 调用方法intercepors实现当前实例的拦截器
     this.interceptors(instance)
     return instance(options)
   }

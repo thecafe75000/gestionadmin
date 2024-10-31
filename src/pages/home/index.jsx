@@ -146,7 +146,7 @@ const Home = () => {
             </p>
           </div>
         </Card>
-        <Card>
+        <Card style={{ marginTop: '10px' }}>
           <Table
             dataSource={tableData}
             columns={columns}
@@ -174,13 +174,22 @@ const Home = () => {
             )
           })}
         </div>
-        {echartData.order && <Echarts chartData={echartData.order} style={{ height: '280px' }} />}
+        {echartData.order && (
+          <Echarts chartData={echartData.order} style={{ height: '280px' }} />
+        )}
         <div className='graph'>
           {echartData.user && (
-            <Echarts chartData={echartData.user} style={{ height: '240px', width:'50%' }} />
+            <Echarts
+              chartData={echartData.user}
+              style={{ height: '240px', width: '50%' }}
+            />
           )}
           {echartData.video && (
-            <Echarts chartData={echartData.video} isAxisChart={false} style={{ height: '260px', width:'50%' }} />
+            <Echarts
+              chartData={echartData.video}
+              isAxisChart={false}
+              style={{ height: '260px', width: '50%' }}
+            />
           )}
         </div>
       </Col>

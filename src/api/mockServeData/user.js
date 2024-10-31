@@ -23,7 +23,7 @@ for (let i = 0; i < count; i++) {
   List.push(
     Mock.mock({
       id: Mock.Random.guid(),
-      name: Mock.Random.name(),
+      name: Mock.Random.cname(), // 生成中文名
       addr: Mock.mock('@city(true)'),
       'age|18-60': 1,
       birth: Mock.Random.date(),
@@ -42,12 +42,14 @@ const userApi = {
   getUserList: (config) => {
     const { name, page = 1, limit = 20 } = param2Obj(config.url)
     const mockList = List.filter((user) => {
+      // chinese names
       if (
         name &&
         user.name.indexOf(name) === -1 &&
         user.addr.indexOf(name) === -1
-      )
+      ) {
         return false
+      }
       return true
     })
     const pageList = mockList.filter(
