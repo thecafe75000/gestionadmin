@@ -5,6 +5,7 @@ import Mall from '@/pages/mall'
 import User from '@/pages/user'
 import PageOne from '@/pages/souspages/pageone'
 import PageTwo from '@/pages/souspages/pagetwo'
+import Login from '@/pages/login'
 
 const Router = () => {
   const routes = useRoutes([
@@ -43,6 +44,10 @@ const Router = () => {
           ]
         }
       ]
+    },
+    {
+      path: '/login',
+      element: <Login/>
     }
   ]) 
   return routes

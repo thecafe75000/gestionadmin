@@ -16,7 +16,7 @@ const CommonTag = () => {
   const handleClose = (tag,index) => {
     let length = tabList.length -1 
     dispatch(closeTab(tag))
-    if (tag.path !== location.path) {
+    if (tag.path !== location.pathname) {
       return
     }
     if (index === length) {

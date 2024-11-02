@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Avatar, Button,Dropdown, Layout } from 'antd'
 import { MenuFoldOutlined } from '@ant-design/icons'
 import userImage from '../../asssets/images/user.png'
@@ -7,11 +8,19 @@ import './index.css'
 import { collapseMenu } from '../../store/reducers/tab'
 
 
+
 const { Header } = Layout
 
 const CommonHeader = ({ collapse }) => {
   const dispatch = useDispatch()
-  const logout = () => {}
+  const navigate = useNavigate()
+
+  // 退出登录
+  const logout = () => {
+    // 清除token
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
 
   const items = [
     {
@@ -32,7 +41,7 @@ const CommonHeader = ({ collapse }) => {
         <button
           target='_blank'
           rel='noopener noreferrer'
-          onClick={() => logout}
+          onClick={() => logout()}
           style={{ border: 'none', backgroundColor: '#fff' }}
         >
           Déconnexion

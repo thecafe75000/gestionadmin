@@ -38,3 +38,11 @@ export const deleteUser = (data) => {
     data
   })
 }
+
+export const getConnexion = (data) => {
+  return httpReq.request({
+    url: '/permission/getConnexion',
+    method: 'post',
+    data
+  })
+}
