@@ -42,6 +42,6 @@ const tabSlice = createSlice({
   }
 })
 
-export const { collapseMenu, selectMenulist, closeTab, setCurrentMenu } =
-  tabSlice.actions
+export const { collapseMenu, selectMenulist, closeTab, setCurrentMenu } = tabSlice.actions
+
 export default tabSlice.reducer
